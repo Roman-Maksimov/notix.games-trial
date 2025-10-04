@@ -1,0 +1,30 @@
+{
+  "name": "@notix.games/api",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./types": "./src/types.ts",
+    "./query-client": "./src/queryClient.ts",
+    "./*": "./src/generated/*/index.ts"
+  },
+  "dependencies": {
+    "@tanstack/react-query": "^5.83.0",
+    "axios": "^1.11.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@notix.games/eslint-config": "*",
+    "@notix.games/typescript-config": "*",
+    "@types/node": "^20.0.0",
+    "openapi-typescript": "^7.0.0",
+    "tsx": "^4.0.0"
+  }
+}
