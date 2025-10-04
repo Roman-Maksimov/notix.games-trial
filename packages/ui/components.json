@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": false,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "@notix.games/ui/styles/global.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "./src/components",
+    "utils": "@notix.games/utils",
+    "ui": "@notix.games/ui"
+  },
+  "iconLibrary": "lucide"
+}

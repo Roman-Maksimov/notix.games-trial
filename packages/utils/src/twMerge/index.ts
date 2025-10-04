@@ -1,0 +1,46 @@
+import { extendTailwindMerge } from "tailwind-merge";
+
+export const twMerge = extendTailwindMerge({
+  override: {
+    classGroups: {
+      "font-size": [
+        "text-h1",
+        "text-h2",
+        "text-h3",
+        "text-info-12",
+        "text-semibold-16",
+        "text-semibold-18",
+        "text-bold-24",
+        "text-txt-12-regular",
+        "text-txt-14-regular",
+        "text-txt-14-regular-100",
+        "text-txt-14-medium",
+
+        "text-2xl",
+        "text-base",
+        "text-base-bold",
+        "text-base-medium",
+        "text-base-normal",
+        "text-base-semibold",
+        "text-lg",
+        "text-lg-bold",
+        "text-lg-medium",
+        "text-lg-normal",
+        "text-lg-semibold",
+        "text-sm",
+        "text-sm-bold",
+        "text-sm-medium",
+        "text-sm-normal",
+        "text-sm-semibold",
+        "text-xl",
+        "text-xs",
+        "text-xs-bold",
+        "text-xs-medium",
+        "text-xs-normal",
+        "text-xs-semibold",
+        "text-xxs-normal",
+        "text-xxs-semibold",
+      ],
+    },
+  },
+});

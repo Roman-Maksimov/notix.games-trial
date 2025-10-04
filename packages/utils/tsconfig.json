@@ -1,5 +1,5 @@
 {
-  "extends": "@notix.games/typescript-config/react-library.json",
+  "extends": "@notix.games/typescript-config/base.json",
   "compilerOptions": {
     "outDir": "dist"
   },

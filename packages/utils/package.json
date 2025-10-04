@@ -1,0 +1,25 @@
+{
+  "name": "@notix.games/utils",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./*": "./src/*/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "generate:component": "turbo gen react-component",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@notix.games/eslint-config": "*",
+    "@notix.games/typescript-config": "*",
+    "@types/node": "^22.15.3",
+    "eslint": "^9.33.0",
+    "typescript": "5.9.2",
+    "vitest": "^3.2.4"
+  },
+  "dependencies": {
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.3.1"
+  }
+}

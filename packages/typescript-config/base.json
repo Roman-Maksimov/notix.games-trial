@@ -1,19 +1,22 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
+    "baseUrl": ".",
     "declaration": true,
     "declarationMap": true,
-    "esModuleInterop": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "incremental": false,
     "isolatedModules": true,
     "lib": ["es2022", "DOM", "DOM.Iterable"],
-    "module": "NodeNext",
+    "module": "es2022",
     "moduleDetection": "force",
-    "moduleResolution": "NodeNext",
+    "moduleResolution": "bundler",
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ES2022"
+    "target": "ES2022",
+    "types": ["node", "vite/client"]
   }
 }
