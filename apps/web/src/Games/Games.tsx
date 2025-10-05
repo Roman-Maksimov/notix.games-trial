@@ -31,7 +31,7 @@ import { GamesList } from "./GamesList";
 export const Games: FC = () => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const { data } = useGetGamesQuery();
+  const { data } = useGetGamesQuery({ page });
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
@@ -63,14 +63,16 @@ export const Games: FC = () => {
             {count} {pluralize(count, "игр", "игра", "игры")}
           </CardAction>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4 py-1 overflow-hidden">
+
+        <CardContent className="flex flex-col flex-1 gap-4 py-1 overflow-hidden">
           <Input className="flex-none" value={query} onChange={handleChange} />
           <div className="flex-1 overflow-auto border-y">
             <GamesList games={data?.data.data} />
           </div>
         </CardContent>
+
         <CardFooter>
-          {data && (
+          {data ? (
             <Pagination>
               <PaginationContent>
                 <PaginationItem>
@@ -102,6 +104,8 @@ export const Games: FC = () => {
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
+          ) : (
+            <div className="h-9" />
           )}
         </CardFooter>
       </Card>

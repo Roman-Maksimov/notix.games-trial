@@ -6,4 +6,10 @@ export interface Game {
   description: string;
 }
 
+export interface GetGamesRequest {
+  query?: string;
+  page?: number;
+  limit?: number;
+}
+
 export type GetGamesResponse = PaginatedResponse<Game[]>;

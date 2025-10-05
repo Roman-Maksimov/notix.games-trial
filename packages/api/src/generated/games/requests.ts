@@ -1,6 +1,6 @@
 import client from "../../client";
-import { GetGamesResponse } from "./types";
+import { GetGamesRequest, GetGamesResponse } from "./types";
 
-export const getGames = () => {
-  return client.get<GetGamesResponse>("/api/games");
+export const getGames = (params?: GetGamesRequest) => {
+  return client.get<GetGamesResponse>("/api/games", { params });
 };
