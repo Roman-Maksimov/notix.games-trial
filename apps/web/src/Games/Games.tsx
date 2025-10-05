@@ -19,6 +19,7 @@ import {
 import { Skeleton } from "@notix.games/ui/components/skeleton";
 import { cn } from "@notix.games/utils/cn";
 import { pluralize } from "@notix.games/utils/pluralize";
+import { useDebouncedValue } from "@tanstack/react-pacer";
 import {
   ChangeEventHandler,
   FC,
@@ -32,7 +33,16 @@ import { GamesList } from "./GamesList";
 export const Games: FC = () => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const { data, isLoading } = useGetGamesQuery({ page });
+
+  const [debouncedQuery] = useDebouncedValue(
+    query,
+    {
+      wait: 500,
+    },
+    (state) => ({ isPending: state.isPending }),
+  );
+
+  const { data, isLoading } = useGetGamesQuery({ page, query: debouncedQuery });
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
