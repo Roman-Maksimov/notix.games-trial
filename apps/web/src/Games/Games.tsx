@@ -16,6 +16,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@notix.games/ui/components/pagination";
+import { Skeleton } from "@notix.games/ui/components/skeleton";
 import { cn } from "@notix.games/utils/cn";
 import { pluralize } from "@notix.games/utils/pluralize";
 import {
@@ -31,7 +32,7 @@ import { GamesList } from "./GamesList";
 export const Games: FC = () => {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const { data } = useGetGamesQuery({ page });
+  const { data, isLoading } = useGetGamesQuery({ page });
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
@@ -60,7 +61,13 @@ export const Games: FC = () => {
         <CardHeader>
           <CardTitle>Игры</CardTitle>
           <CardAction>
-            {count} {pluralize(count, "игр", "игра", "игры")}
+            {isLoading ? (
+              <Skeleton className="h-6 w-[60px] rounded-full" />
+            ) : (
+              <>
+                {count} {pluralize(count, "игр", "игра", "игры")}
+              </>
+            )}
           </CardAction>
         </CardHeader>
 
@@ -105,7 +112,7 @@ export const Games: FC = () => {
               </PaginationContent>
             </Pagination>
           ) : (
-            <div className="h-9" />
+            <Skeleton className="h-9 w-[484px] rounded-full m-auto" />
           )}
         </CardFooter>
       </Card>

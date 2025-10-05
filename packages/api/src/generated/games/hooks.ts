@@ -15,7 +15,12 @@ export const useGetGamesQuery = (
   options?: UseQueryRequestOptions<AxiosResponse<GetGamesResponse>>,
 ) => {
   return useQuery<AxiosResponse<GetGamesResponse>>({
-    queryKey: [API_KEY_GAMES_GETGAMES, params],
+    queryKey: [
+      API_KEY_GAMES_GETGAMES,
+      params?.query ?? "",
+      params?.page ?? 1,
+      params?.limit ?? 10,
+    ],
     queryFn: () => getGames(params),
     ...options,
   });
