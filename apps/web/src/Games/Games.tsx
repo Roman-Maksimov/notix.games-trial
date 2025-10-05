@@ -8,6 +8,15 @@ import {
   CardTitle,
 } from "@notix.games/ui/components/card";
 import { Input } from "@notix.games/ui/components/input";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@notix.games/ui/components/pagination";
+import { cn } from "@notix.games/utils/cn";
 import { pluralize } from "@notix.games/utils/pluralize";
 import {
   ChangeEventHandler,
@@ -50,7 +59,37 @@ export const Games: FC = () => {
           </div>
         </CardContent>
         <CardFooter>
-          <p>Card Footer</p>
+          {data && (
+            <Pagination>
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious href="#" />
+                </PaginationItem>
+                {new Array(data.data.pagination.totalPages)
+                  .fill(true)
+                  .map((_, index) => (
+                    <PaginationItem key={index}>
+                      <PaginationLink
+                        className={cn(
+                          "cursor-pointer",
+                          data.data.pagination.page === index + 1
+                            ? "bg-accent"
+                            : undefined,
+                        )}
+                        onClick={() => {
+                          // TODO
+                        }}
+                      >
+                        {index + 1}
+                      </PaginationLink>
+                    </PaginationItem>
+                  ))}
+                <PaginationItem>
+                  <PaginationNext href="#" />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
+          )}
         </CardFooter>
       </Card>
     </div>
