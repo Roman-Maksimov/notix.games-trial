@@ -1,8 +1,53 @@
 import { useGetGamesQuery } from "@notix.games/api/games";
-import { FC } from "react";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@notix.games/ui/components/card";
+import { Input } from "@notix.games/ui/components/input";
+import {
+  ChangeEventHandler,
+  FC,
+  startTransition,
+  useCallback,
+  useState,
+} from "react";
+
+import { GamesList } from "./GamesList";
 
 export const Games: FC = () => {
+  const [query, setQuery] = useState("");
   const { data } = useGetGamesQuery();
 
-  return null;
+  const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
+    (event) => {
+      startTransition(() => {
+        setQuery(event.target.value);
+      });
+    },
+    [],
+  );
+
+  return (
+    <div className="h-screen overflow-hidden p-6">
+      <Card className="w-full h-full mx-auto max-w-[800px]">
+        <CardHeader>
+          <CardTitle>Игры</CardTitle>
+          <CardAction>Card Action</CardAction>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4 overflow-hidden">
+          <Input className="flex-none" value={query} onChange={handleChange} />
+          <div className="flex-1 overflow-auto border-y">
+            <GamesList games={data?.data.data} />
+          </div>
+        </CardContent>
+        <CardFooter>
+          <p>Card Footer</p>
+        </CardFooter>
+      </Card>
+    </div>
+  );
 };
