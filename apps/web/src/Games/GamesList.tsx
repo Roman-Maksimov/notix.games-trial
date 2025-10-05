@@ -19,7 +19,7 @@ export const GamesList: FC<GamesListProps> = ({ games }) => {
   return (
     <div className="flex flex-col gap-1">
       {games.map((game) => (
-        <Item key={game.id}>
+        <Item size="sm" key={game.id}>
           <ItemContent>
             <ItemTitle>{game.name}</ItemTitle>
             <ItemDescription>{game.description}</ItemDescription>
