@@ -42,7 +42,13 @@ export const Games: FC = () => {
     (state) => ({ isPending: state.isPending }),
   );
 
-  const { data, isLoading } = useGetGamesQuery({ page, query: debouncedQuery });
+  const { data, isLoading } = useGetGamesQuery({
+    page,
+    query: debouncedQuery || undefined,
+  });
+
+  // Логирование для демонстрации отмены запросов
+  console.log("Games query:", { page, query: debouncedQuery, isLoading });
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
