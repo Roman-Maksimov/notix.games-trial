@@ -14,6 +14,17 @@ export interface GamesListProps {
 }
 
 export const GamesList: FC<GamesListProps> = ({ games, isLoading }) => {
+  if (!games?.length && !isLoading) {
+    return (
+      <div className="flex flex-col gap-2 items-center justify-center h-full">
+        <div className="text-lg font-semibold">Игры не найдены</div>
+        <p className="text-muted-foreground text-sm">
+          Попробуйте изменить запрос
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col gap-1">
       {isLoading

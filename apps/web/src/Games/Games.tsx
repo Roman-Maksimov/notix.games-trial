@@ -8,16 +8,7 @@ import {
   CardTitle,
 } from "@notix.games/ui/components/card";
 import { Input } from "@notix.games/ui/components/input";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@notix.games/ui/components/pagination";
 import { Skeleton } from "@notix.games/ui/components/skeleton";
-import { cn } from "@notix.games/utils/cn";
 import { pluralize } from "@notix.games/utils/pluralize";
 import { useDebouncedValue } from "@tanstack/react-pacer";
 import {
@@ -29,6 +20,7 @@ import {
 } from "react";
 
 import { GamesList } from "./GamesList";
+import { GamesPagination } from "./GamesPagination";
 
 export const Games: FC = () => {
   const [query, setQuery] = useState("");
@@ -47,9 +39,6 @@ export const Games: FC = () => {
     query: debouncedQuery || undefined,
   });
 
-  // Логирование для демонстрации отмены запросов
-  console.log("Games query:", { page, query: debouncedQuery, isLoading });
-
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
     (event) => {
       startTransition(() => {
@@ -58,16 +47,6 @@ export const Games: FC = () => {
     },
     [],
   );
-
-  const handleSetPrevPage = useCallback(() => {
-    setPage((page) => Math.max(1, page - 1));
-  }, []);
-
-  const handleSetNextPage = useCallback(() => {
-    setPage((page) =>
-      Math.min(data?.data.pagination.totalPages ?? 1, page - 1),
-    );
-  }, [data?.data.pagination.totalPages]);
 
   const count = data?.data.pagination.total ?? 0;
 
@@ -95,42 +74,12 @@ export const Games: FC = () => {
         </CardContent>
 
         <CardFooter>
-          {/* TODO: для пагинации нужен отдельный запрос */}
-          {data ? (
-            <Pagination>
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious onClick={handleSetPrevPage} />
-                </PaginationItem>
-                {new Array(data.data.pagination.totalPages)
-                  .fill(true)
-                  .map((_, index) => {
-                    const currPage = index + 1;
-
-                    return (
-                      <PaginationItem key={index}>
-                        <PaginationLink
-                          className={cn(
-                            "cursor-pointer",
-                            page === currPage ? "bg-accent" : undefined,
-                          )}
-                          onClick={() => {
-                            setPage(currPage);
-                          }}
-                        >
-                          {currPage}
-                        </PaginationLink>
-                      </PaginationItem>
-                    );
-                  })}
-                <PaginationItem>
-                  <PaginationNext onClick={handleSetNextPage} />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
-          ) : (
-            <Skeleton className="h-9 w-[484px] rounded m-auto" />
-          )}
+          <GamesPagination
+            page={page}
+            setPage={setPage}
+            totalPages={data?.data.pagination.totalPages}
+            isLoading={isLoading}
+          />
         </CardFooter>
       </Card>
     </div>
