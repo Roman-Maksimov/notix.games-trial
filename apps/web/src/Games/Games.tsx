@@ -30,6 +30,7 @@ import { GamesList } from "./GamesList";
 
 export const Games: FC = () => {
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
   const { data } = useGetGamesQuery();
 
   const handleChange = useCallback<ChangeEventHandler<HTMLInputElement>>(
@@ -40,6 +41,16 @@ export const Games: FC = () => {
     },
     [],
   );
+
+  const handleSetPrevPage = useCallback(() => {
+    setPage((page) => Math.max(1, page - 1));
+  }, []);
+
+  const handleSetNextPage = useCallback(() => {
+    setPage((page) =>
+      Math.min(data?.data.pagination.totalPages ?? 1, page - 1),
+    );
+  }, [data?.data.pagination.totalPages]);
 
   const count = data?.data.pagination.total ?? 0;
 
@@ -63,29 +74,31 @@ export const Games: FC = () => {
             <Pagination>
               <PaginationContent>
                 <PaginationItem>
-                  <PaginationPrevious href="#" />
+                  <PaginationPrevious onClick={handleSetPrevPage} />
                 </PaginationItem>
                 {new Array(data.data.pagination.totalPages)
                   .fill(true)
-                  .map((_, index) => (
-                    <PaginationItem key={index}>
-                      <PaginationLink
-                        className={cn(
-                          "cursor-pointer",
-                          data.data.pagination.page === index + 1
-                            ? "bg-accent"
-                            : undefined,
-                        )}
-                        onClick={() => {
-                          // TODO
-                        }}
-                      >
-                        {index + 1}
-                      </PaginationLink>
-                    </PaginationItem>
-                  ))}
+                  .map((_, index) => {
+                    const currPage = index + 1;
+
+                    return (
+                      <PaginationItem key={index}>
+                        <PaginationLink
+                          className={cn(
+                            "cursor-pointer",
+                            page === currPage ? "bg-accent" : undefined,
+                          )}
+                          onClick={() => {
+                            setPage(currPage);
+                          }}
+                        >
+                          {currPage}
+                        </PaginationLink>
+                      </PaginationItem>
+                    );
+                  })}
                 <PaginationItem>
-                  <PaginationNext href="#" />
+                  <PaginationNext onClick={handleSetNextPage} />
                 </PaginationItem>
               </PaginationContent>
             </Pagination>
