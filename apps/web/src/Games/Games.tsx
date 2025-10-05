@@ -74,11 +74,12 @@ export const Games: FC = () => {
         <CardContent className="flex flex-col flex-1 gap-4 py-1 overflow-hidden">
           <Input className="flex-none" value={query} onChange={handleChange} />
           <div className="flex-1 overflow-auto border-y">
-            <GamesList games={data?.data.data} />
+            <GamesList games={data?.data.data} isLoading={isLoading} />
           </div>
         </CardContent>
 
         <CardFooter>
+          {/* TODO: для пагинации нужен отдельный запрос */}
           {data ? (
             <Pagination>
               <PaginationContent>
@@ -112,7 +113,7 @@ export const Games: FC = () => {
               </PaginationContent>
             </Pagination>
           ) : (
-            <Skeleton className="h-9 w-[484px] rounded-full m-auto" />
+            <Skeleton className="h-9 w-[484px] rounded m-auto" />
           )}
         </CardFooter>
       </Card>
